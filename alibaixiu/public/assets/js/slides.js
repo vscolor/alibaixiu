@@ -41,9 +41,25 @@ $.ajax({
     type: 'get',
     url: '/slides',
     success: function(response) {
-        console.log(response);
+        // console.log(response);
         var html = template('slidesTpl', { data: response });
-        console.log(html);
+        // console.log(html);
         $('#slidesBox').html(html);
     }
-})
+});
+
+// 当删除按钮被点击时
+$('#slidesBox').on('click', '.delete', function() {
+    if (confirm('您真的要进行删除操作吗？')) {
+        // 获取管理员要删除的轮播图id
+        var id = $(this).attr('data-id');
+        // 向服务器发送请求 实现轮播数据删除功能
+        $.ajax({
+            type: 'DELETE',
+            url: '/slides/' + id,
+            success: function() {
+                location.reload();
+            }
+        })
+    }
+});
