@@ -40,14 +40,16 @@ $('#formBox').on('submit', '#modifyCategory', function() {
     var formData = $(this).serialize();
     //获取要修改的分类id
     var id = $(this).attr('data-id');
+    // 发送请求 修改分类数据
     $.ajax({
-        type: 'put',
-        url: '/categories/' + id,
-        data: formData,
-        success: function() {
-            location.reload();
-        }
-    })
+            type: 'put',
+            url: '/categories/' + id,
+            data: formData,
+            success: function() {
+                location.reload();
+            }
+        })
+        // 阻止表单的默认行为
     return false;
 });
 //当删除按钮被点击的时候
@@ -55,6 +57,7 @@ $('#categoryBox').on('click', '.delete', function() {
     if (confirm('您确定要删除吗')) {
         //获取要删除的分类id
         var id = $(this).attr('data-id');
+        // 向服务器端发送请求 删除分类
         $.ajax({
             type: 'delete',
             url: '/categories/' + id,

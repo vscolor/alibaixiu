@@ -31,16 +31,19 @@ $('#feature').on('change', function() {
 });
 //当添加文章表单提交的时候
 $('#addForm').on('submit', function() {
+    // 获取管理员在表单中输入的内容
     var formData = $(this).serialize();
+    // 向服务器端发送请求 实现添加文章功能
     $.ajax({
-        type: 'post',
-        url: '/posts',
-        data: formData,
-        success: function() {
-            //文章添加成功 跳转到文章列表页面
-            location.href = '/admin/posts.html'
-        }
-    })
+            type: 'post',
+            url: '/posts',
+            data: formData,
+            success: function() {
+                //文章添加成功 跳转到文章列表页面
+                location.href = '/admin/posts.html'
+            }
+        })
+        // 阻止表单默认提交的行为
     return false;
 });
 //获取浏览器地址栏中的id参数
