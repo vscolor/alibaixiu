@@ -23,6 +23,27 @@ $('#file').on('change', function() {
 $('#slidesForm').on('submit', function() {
     // 获取管理员在表单中输入的内容
     var formData = $(this).serialize();
-    // 阻止表单默认提交行为
+    // 向服务器端发送请求 添加轮播图数据
+    $.ajax({
+            type: 'post',
+            url: '/slides',
+            data: formData,
+            success: function() {
+                location.reload();
+            }
+        })
+        // 阻止表单默认提交行为
     return false;
+});
+
+// 向服务器端发送请求 索要图片轮播列表数据
+$.ajax({
+    type: 'get',
+    url: '/slides',
+    success: function(response) {
+        console.log(response);
+        var html = template('slidesTpl', { data: response });
+        console.log(html);
+        $('#slidesBox').html(html);
+    }
 })
