@@ -3,9 +3,8 @@ $.ajax({
     type: 'get',
     url: '/slides',
     success: function(response) {
-        // console.log(response);
+        console.log(response)
         var html = template('slidesTpl', { data: response });
-        // console.log(html)
         $('#slidesBox').html(html)
             //
         var swiper = Swipe(document.querySelector('.swipe'), {
@@ -27,5 +26,16 @@ $.ajax({
                 swiper.next();
             }
         })
+    }
+});
+
+// 向服务器端发送请求 索要最新发布数据
+$.ajax({
+    type: 'get',
+    url: '/posts/lasted',
+    success: function(response) {
+        console.log(response)
+        var html = template('lastedTpl', { data: response });
+        $('#lastedBox').html(html);
     }
 })
